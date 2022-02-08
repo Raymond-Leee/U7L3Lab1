@@ -18,10 +18,10 @@ public class CustomerCheck
      */
     public double totalPrices()
     {
-        double total = 0;
+        double total = 0.0;
         for (int i = 0; i < check.size(); i++)
         {
-            total = check.get(i).getPrice();
+            total += check.get(i).getPrice();
         }
         return total;
     }
@@ -30,13 +30,13 @@ public class CustomerCheck
      *  returns false otherwise, as described in part (b) */
     public boolean couponApplies()
     {
-        for (int i = 0; i < check.size(); i++)
-        {
-            if (check.get(i).isDailySpecial() == true)
+        for (int i = 0; i < check.size(); i++) {
+
+            if (check.get(i).isDailySpecial())
             {
                 return false;
             }
-            if (totalPrices() < 40);
+            if (totalPrices() < 40)
             {
                 return false;
             }
@@ -53,11 +53,19 @@ public class CustomerCheck
         int people = 0;
         for (int i = 0; i < check.size(); i++)
         {
-            if (check.get(i).isEntree() == true)
+            if (check.get(i).isEntree())
             {
                 people++;
             }
         }
-        
+        if (people >= 6)
+        {
+            tipAmount = finalCost * 0.2;
+        }
+        if (couponApplies())
+        {
+            discountAmount = finalCost * 0.25;
+        }
+        return finalCost - discountAmount + tipAmount;
     }
 }
